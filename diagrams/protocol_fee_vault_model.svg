@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="320" viewBox="0 0 800 320">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#111" />
+    </marker>
+  </defs>
+  <rect x="60" y="60" width="240" height="60" fill="#fff" stroke="#111" />
+  <text x="180" y="95" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">protocol_fee_vault</text>
+
+  <rect x="60" y="180" width="240" height="60" fill="#fff" stroke="#111" />
+  <text x="180" y="215" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">project_treasury</text>
+
+  <rect x="420" y="60" width="200" height="60" fill="#f2f2f2" stroke="#111" />
+  <text x="520" y="95" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Campaign PDA</text>
+
+  <rect x="420" y="180" width="200" height="60" fill="#f2f2f2" stroke="#111" />
+  <text x="520" y="215" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">output_governance</text>
+
+  <line x1="300" y1="90" x2="420" y2="90" stroke="#111" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="300" y1="210" x2="420" y2="210" stroke="#111" stroke-width="2" marker-end="url(#arrow)" />
+</svg>

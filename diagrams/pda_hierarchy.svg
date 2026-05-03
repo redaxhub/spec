@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#111" />
+    </marker>
+  </defs>
+  <rect x="40" y="40" width="200" height="60" fill="#f2f2f2" stroke="#111" />
+  <text x="140" y="75" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Protocol Config</text>
+
+  <rect x="300" y="40" width="220" height="60" fill="#f2f2f2" stroke="#111" />
+  <text x="410" y="75" font-family="Arial, sans-serif" font-size="14" text-anchor="middle">Campaign PDA</text>
+
+  <line x1="240" y1="70" x2="300" y2="70" stroke="#111" stroke-width="2" marker-end="url(#arrow)" />
+
+  <rect x="300" y="140" width="220" height="60" fill="#fff" stroke="#111" />
+  <text x="410" y="175" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">protocol_fee_vault</text>
+
+  <rect x="300" y="240" width="220" height="60" fill="#fff" stroke="#111" />
+  <text x="410" y="275" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">output_mint</text>
+
+  <rect x="300" y="340" width="220" height="60" fill="#fff" stroke="#111" />
+  <text x="410" y="375" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">metadata_account</text>
+
+  <line x1="410" y1="100" x2="410" y2="140" stroke="#111" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="410" y1="200" x2="410" y2="240" stroke="#111" stroke-width="2" marker-end="url(#arrow)" />
+  <line x1="410" y1="300" x2="410" y2="340" stroke="#111" stroke-width="2" marker-end="url(#arrow)" />
+</svg>

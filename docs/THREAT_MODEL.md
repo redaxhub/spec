@@ -1,0 +1,22 @@
+# REDAX Hub Threat Model v1.1
+
+> Attack vectors and defense layers for the Phase 1 and Phase 2 protocol design.
+
+### Output Governance & Multi-Project Merger Threat Vectors
+
+| Code | Vector | Attack Scenario | Defense Layer | Phase |
+|---|---|---|---|---|
+| TM-OG-1 | Impersonation campaign | Adversary opens a SingleProjectMigration campaign for a legacy mint they do not own. | Phase 1: only SingleProjectMigration. Discovery Policy keeps unreviewed campaigns out of default UI. Phase 2: optional `LegacyProjectAttestation`. | Both |
+| TM-OG-2 | Fake official merger | Adversary opens OfficialMultiProjectMerger with own attestation but no co-mergee attestation. | Phase 1: rejected by program. Phase 2: R-OG-5 enforcement. | Phase 2 |
+| TM-OG-3 | Disguised acquisition | A project invites holders of another project to convert into "merger" output that is solo-owned. | `merger_type` field separation. UI displays attestation list explicitly. | Both |
+| TM-OG-4 | Multisig signer collusion | "Multisig" output_governance where all signers controlled by one party. | Phase 2 Verified Tier multisig diversity review. UI displays signer count and multisig age. | Phase 2 |
+| TM-OG-5 | Post-campaign authority transfer rugpull | `TransferToGovernance` set; output_governance compromised, allowing unbounded mint. | Default `Revoked`. R-OG-11 disqualifies TransferToGovernance from Verified Tier. UI warns. | Both |
+| TM-OG-6 | Disclaimer hiding | Frontend hides Unofficial disclaimer in footer or tooltip. | UI Requirements "Prohibited UI Behaviors." | Phase 2 |
+| TM-OG-7 | Attestation revocation race | Project owner submits attestation, then attempts revoke before campaign start; adversary races to convert. | `revoked` flag enforced pre-campaign-start only. Phase 2 timelock: 24h between final attestation and campaign activation. | Phase 2 |
+| TM-OG-8 | Treasury claim dispute | `campaign_admin` and `output_governance` are different parties; admin claims protocol_fee_vault. | R-OG-10 separation. Treasury policy locked at creation. `campaign_admin` cannot withdraw `protocol_fee_vault` (program-enforced). | Both |
+| TM-OG-9 | Fake community vote evidence | Adversary opens CommunityLedMigration with fabricated vote URI/hash. | Phase 2 Verified Tier manual review. UI displays vote tally + Realms verification. | Phase 2 |
+| TM-OG-10 | Cross-campaign authority confusion | Same `output_governance` reused across multiple campaigns; one compromise affects all. | Per-campaign isolation. UI warns if entered governance address is already used. | Both |
+| TM-OG-11 | Treasury terminology confusion | Holder confuses `protocol_fee_vault` with project's treasury. | Naming refactor: the REDAX protocol fee vault was previously referred to as campaign treasury. UI explicit labels. R-OG-1 documented. | Both |
+| TM-OG-12 | ExistingOutputMint mint authority hijack | Phase 2 ExistingOutputMint mode: campaign creator transfers mint_authority to Campaign PDA, but reverts at last moment. | Phase 1: ExistingOutputMint rejected. Phase 2: program checks `mint_authority == Campaign PDA` at every convert. | Phase 2 |
+| TM-OG-13 | Permissionless scam in default UI feed | Adversary creates a permissionless SingleProjectMigration campaign and expects to be discovered by holders via default UI. | Phase 1 Discovery Policy: canonical UI only surfaces REDAX-reviewed campaigns by default. Direct-link access requires acknowledgment of unreviewed status (R-OG-12). | Phase 1 |
+| TM-OG-14 | Freeze authority post-launch hijack | Hypothetical: if Campaign PDA held freeze authority, a logic bug or upgrade exploit could allow holders' tokens to be frozen. | Phase 1: `freeze_authority MUST be None` (R-OG-14). Class of attacks structurally eliminated. Phase 2 evaluation only with explicit justification. | Phase 1 |
