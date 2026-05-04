@@ -44,7 +44,9 @@ concepts:
 | `project_treasury` | `output_governance` (off-protocol) | The project's own treasury for the output token. NOT managed by REDAX. | Any address chosen by output_governance; outside REDAX scope |
 | `treasury_policy` | Locked at create_campaign | Execution policy applied to `protocol_fee_vault` (Hold/Vest/LP/Mixed) | Stored in Campaign PDA, immutable |
 
-**Naming change (v1 to v1.1):** The REDAX protocol fee vault was previously referred to as campaign treasury. The current term is `protocol_fee_vault`, which makes it unambiguous: this vault holds REDAX's protocol fee, NOT the project's treasury.
+**Naming change (v1 to v1.1):** The REDAX protocol fee vault was previously referred to as campaign treasury.
+The current term is `protocol_fee_vault`, which makes it unambiguous: this
+vault holds REDAX's protocol fee, NOT the project's treasury.
 
 The protocol fee vault is owned by the program (Campaign PDA bounded). The
 campaign creator selects a `treasury_policy` at creation; REDAX cannot deviate
@@ -361,7 +363,8 @@ The `authority_policy: u8` field on Campaign PDA determines what happens to
 
 | Phase | What ships |
 | --- | --- |
-| Phase 1 (Q4 2026 mainnet) | All struct fields added (`merger_type`, `output_mint_mode`, `metadata_strategy`, `output_governance`, `authority_policy`, `official_attestation_status`, `required_attestations_count`, `received_attestations_count`, `disclaimer_hash`). |
+| Phase 1 (Q4 2026 mainnet) | All struct fields added (`merger_type`, `output_mint_mode`, `metadata_strategy`, `output_governance`, `authority_policy`). |
+| Phase 1 (Q4 2026 mainnet) | All struct fields added (`official_attestation_status`, `required_attestations_count`, `received_attestations_count`, `disclaimer_hash`). |
 | Phase 1 (Q4 2026 mainnet) | Program logic enforces: `merger_type == SingleProjectMigration` AND `output_mint_mode == ProgramCreatedOutputMint` AND `metadata_strategy == MetaplexMetadataCPI` AND output mint `freeze_authority == None`. |
 | Phase 1 (Q4 2026 mainnet) | All other values rejected with `Phase2FeatureNotEnabled` error and `msg!()` log. |
 | Phase 1 (Q4 2026 mainnet) | `LegacyProjectAttestation` PDA defined but not activated. Discovery Policy active. |
