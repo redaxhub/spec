@@ -1,19 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="320" viewBox="0 0 800 320">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">REDAX Hub output governance model</title>
+  <desc id="desc">Governance separation model showing that REDAX does not own the output token, the Campaign PDA is technical mint authority only, and output_governance is the economic owner.</desc>
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#111" />
+    <style>
+      .bg { fill: #ffffff; }
+      .title { fill: #0f172a; font: 700 26px Arial, sans-serif; }
+      .subtitle { fill: #475569; font: 400 14px Arial, sans-serif; }
+      .panel { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; }
+      .panel-green { fill: #f0fdf4; stroke: #bbf7d0; stroke-width: 1.5; }
+      .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .card-blue { fill: #eff6ff; stroke: #93c5fd; stroke-width: 1.8; }
+      .card-green { fill: #ecfdf5; stroke: #86efac; stroke-width: 1.8; }
+      .card-amber { fill: #fffbeb; stroke: #fcd34d; stroke-width: 1.8; }
+      .card-red { fill: #fff1f2; stroke: #fecdd3; stroke-width: 1.8; }
+      .panel-title { fill: #334155; font: 700 13px Arial, sans-serif; letter-spacing: .06em; }
+      .box-title { fill: #0f172a; font: 700 16px Arial, sans-serif; }
+      .body { fill: #475569; font: 400 12px Arial, sans-serif; }
+      .strong { fill: #0f172a; font: 700 12px Arial, sans-serif; }
+      .arrow-blue { fill: none; stroke: #2563eb; stroke-width: 2.2; marker-end: url(#arrow-blue); }
+      .arrow-green { fill: none; stroke: #059669; stroke-width: 2.2; marker-end: url(#arrow-green); }
+      .arrow-amber { fill: none; stroke: #d97706; stroke-width: 2.2; marker-end: url(#arrow-amber); }
+      .no-line { fill: none; stroke: #e11d48; stroke-width: 2; stroke-dasharray: 6 6; }
+    </style>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#2563eb" />
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#059669" />
+    </marker>
+    <marker id="arrow-amber" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#d97706" />
     </marker>
   </defs>
-  <rect x="60" y="60" width="200" height="60" fill="#f2f2f2" stroke="#111" />
-  <text x="160" y="95" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">campaign_admin</text>
 
-  <rect x="60" y="180" width="200" height="60" fill="#f2f2f2" stroke="#111" />
-  <text x="160" y="215" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">output_governance</text>
+  <rect class="bg" width="1200" height="720" />
+  <text class="title" x="60" y="54">Output governance model</text>
+  <text class="subtitle" x="60" y="80">Role separation prevents technical authority from becoming economic ownership.</text>
 
-  <rect x="360" y="120" width="220" height="70" fill="#fff" stroke="#111" />
-  <text x="470" y="150" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">Campaign PDA</text>
-  <text x="470" y="168" font-family="Arial, sans-serif" font-size="11" text-anchor="middle">(technical authority)</text>
+  <rect class="panel" x="54" y="120" width="520" height="470" rx="18" />
+  <text class="panel-title" x="82" y="153">REDAX PROTOCOL BOUNDARY</text>
 
-  <line x1="260" y1="90" x2="360" y2="135" stroke="#111" stroke-width="2" marker-end="url(#arrow)" />
-  <line x1="260" y1="210" x2="360" y2="175" stroke="#111" stroke-width="2" marker-end="url(#arrow)" />
+  <rect class="panel-green" x="626" y="120" width="520" height="470" rx="18" />
+  <text class="panel-title" x="654" y="153">PROJECT GOVERNANCE BOUNDARY</text>
+
+  <rect class="card-amber" x="96" y="200" width="220" height="96" rx="15" />
+  <text class="box-title" x="206" y="234" text-anchor="middle">campaign_admin</text>
+  <text class="body" x="206" y="258" text-anchor="middle">operational role</text>
+  <text class="body" x="206" y="278" text-anchor="middle">pause / finalize / params</text>
+
+  <rect class="card-blue" x="328" y="310" width="220" height="126" rx="16" />
+  <text class="box-title" x="438" y="346" text-anchor="middle">Campaign PDA</text>
+  <text class="body" x="438" y="371" text-anchor="middle">technical mint authority</text>
+  <text class="body" x="438" y="392" text-anchor="middle">bounded by convert flow</text>
+  <text class="strong" x="438" y="416" text-anchor="middle">not economic owner</text>
+
+  <rect class="card" x="96" y="452" width="220" height="88" rx="15" />
+  <text class="box-title" x="206" y="486" text-anchor="middle">protocol_fee_vault</text>
+  <text class="body" x="206" y="510" text-anchor="middle">REDAX protocol fee only</text>
+
+  <rect class="card-green" x="682" y="210" width="250" height="126" rx="16" />
+  <text class="box-title" x="807" y="247" text-anchor="middle">output_governance</text>
+  <text class="body" x="807" y="272" text-anchor="middle">economic owner</text>
+  <text class="body" x="807" y="293" text-anchor="middle">metadata update authority</text>
+  <text class="strong" x="807" y="317" text-anchor="middle">chosen at create_campaign</text>
+
+  <rect class="card-green" x="682" y="424" width="250" height="96" rx="15" />
+  <text class="box-title" x="807" y="458" text-anchor="middle">project_treasury</text>
+  <text class="body" x="807" y="482" text-anchor="middle">external / off-protocol</text>
+  <text class="body" x="807" y="502" text-anchor="middle">controlled by output_governance</text>
+
+  <rect class="card-blue" x="960" y="310" width="150" height="126" rx="16" />
+  <text class="box-title" x="1035" y="352" text-anchor="middle">Output mint</text>
+  <text class="body" x="1035" y="377" text-anchor="middle">SPL Token</text>
+  <text class="body" x="1035" y="398" text-anchor="middle">freeze_authority</text>
+  <text class="strong" x="1035" y="419" text-anchor="middle">None</text>
+
+  <path class="arrow-amber" d="M316 248 C368 248 390 278 414 310" />
+  <path class="arrow-blue" d="M548 372 H956" />
+  <path class="arrow-green" d="M932 273 C984 273 1008 292 1022 310" />
+  <path class="arrow-green" d="M807 337 V421" />
+  <path class="arrow-blue" d="M378 436 C330 482 294 496 318 496" />
+
+  <rect class="card-red" x="380" y="610" width="440" height="62" rx="16" />
+  <text class="box-title" x="600" y="635" text-anchor="middle">Boundary rule</text>
+  <text class="body" x="600" y="657" text-anchor="middle">REDAX does not own the output token; Campaign PDA only mints through bounded protocol logic.</text>
+
+  <path class="no-line" d="M548 345 C630 270 644 252 682 252" />
+  <line x1="604" y1="278" x2="636" y2="310" stroke="#e11d48" stroke-width="2" />
+  <line x1="636" y1="278" x2="604" y2="310" stroke="#e11d48" stroke-width="2" />
 </svg>

@@ -1,21 +1,90 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="800" height="320" viewBox="0 0 800 320">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="660" viewBox="0 0 1200 660" role="img" aria-labelledby="title desc">
+  <title id="title">REDAX Hub protocol fee vault model</title>
+  <desc id="desc">Treasury separation diagram showing protocol fee routing to protocol_fee_vault and project treasury remaining external and controlled by output_governance.</desc>
   <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#111" />
+    <style>
+      .bg { fill: #ffffff; }
+      .title { fill: #0f172a; font: 700 26px Arial, sans-serif; }
+      .subtitle { fill: #475569; font: 400 14px Arial, sans-serif; }
+      .lane { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1.5; }
+      .lane-green { fill: #f0fdf4; stroke: #bbf7d0; stroke-width: 1.5; }
+      .lane-title { fill: #334155; font: 700 13px Arial, sans-serif; letter-spacing: .06em; }
+      .card { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .blue { fill: #eff6ff; stroke: #93c5fd; stroke-width: 1.8; }
+      .green { fill: #ecfdf5; stroke: #86efac; stroke-width: 1.8; }
+      .amber { fill: #fffbeb; stroke: #fcd34d; stroke-width: 1.8; }
+      .title2 { fill: #0f172a; font: 700 15px Arial, sans-serif; }
+      .body { fill: #475569; font: 400 12px Arial, sans-serif; }
+      .strong { fill: #0f172a; font: 700 12px Arial, sans-serif; }
+      .arrow-blue { fill: none; stroke: #2563eb; stroke-width: 2.2; marker-end: url(#arrow-blue); }
+      .arrow-green { fill: none; stroke: #059669; stroke-width: 2.2; marker-end: url(#arrow-green); }
+      .arrow-amber { fill: none; stroke: #d97706; stroke-width: 2.2; marker-end: url(#arrow-amber); }
+      .divider { stroke: #cbd5e1; stroke-width: 1.5; stroke-dasharray: 7 7; }
+    </style>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#2563eb" />
+    </marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#059669" />
+    </marker>
+    <marker id="arrow-amber" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L9,3 L0,6 Z" fill="#d97706" />
     </marker>
   </defs>
-  <rect x="60" y="60" width="240" height="60" fill="#fff" stroke="#111" />
-  <text x="180" y="95" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">protocol_fee_vault</text>
 
-  <rect x="60" y="180" width="240" height="60" fill="#fff" stroke="#111" />
-  <text x="180" y="215" font-family="Arial, sans-serif" font-size="13" text-anchor="middle">project_treasury</text>
+  <rect class="bg" width="1200" height="660" />
+  <text class="title" x="60" y="54">protocol_fee_vault model</text>
+  <text class="subtitle" x="60" y="80">REDAX fee accounting is separate from the project's off-protocol treasury.</text>
 
-  <rect x="420" y="60" width="200" height="60" fill="#f2f2f2" stroke="#111" />
-  <text x="520" y="95" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">Campaign PDA</text>
+  <rect class="lane" x="54" y="124" width="700" height="430" rx="18" />
+  <text class="lane-title" x="82" y="156">REDAX PROTOCOL FEE PATH</text>
 
-  <rect x="420" y="180" width="200" height="60" fill="#f2f2f2" stroke="#111" />
-  <text x="520" y="215" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">output_governance</text>
+  <rect class="lane-green" x="790" y="124" width="356" height="430" rx="18" />
+  <text class="lane-title" x="818" y="156">PROJECT TREASURY PATH</text>
 
-  <line x1="300" y1="90" x2="420" y2="90" stroke="#111" stroke-width="2" marker-end="url(#arrow)" />
-  <line x1="300" y1="210" x2="420" y2="210" stroke="#111" stroke-width="2" marker-end="url(#arrow)" />
+  <rect class="card" x="92" y="230" width="180" height="96" rx="15" />
+  <text class="title2" x="182" y="264" text-anchor="middle">User conversion</text>
+  <text class="body" x="182" y="288" text-anchor="middle">legacy input</text>
+  <text class="body" x="182" y="308" text-anchor="middle">converted to output</text>
+
+  <rect class="blue" x="330" y="214" width="190" height="128" rx="16" />
+  <text class="title2" x="425" y="250" text-anchor="middle">Campaign PDA</text>
+  <text class="body" x="425" y="276" text-anchor="middle">calculates fee</text>
+  <text class="body" x="425" y="296" text-anchor="middle">mints output</text>
+  <text class="strong" x="425" y="320" text-anchor="middle">1% output fee</text>
+
+  <rect class="amber" x="575" y="170" width="150" height="90" rx="15" />
+  <text class="title2" x="650" y="204" text-anchor="middle">protocol_fee</text>
+  <text class="body" x="650" y="228" text-anchor="middle">REDAX fee share</text>
+
+  <rect class="amber" x="575" y="330" width="150" height="100" rx="15" />
+  <text class="title2" x="650" y="366" text-anchor="middle">protocol_fee_vault</text>
+  <text class="body" x="650" y="390" text-anchor="middle">Campaign PDA</text>
+  <text class="body" x="650" y="410" text-anchor="middle">controlled</text>
+
+  <rect class="green" x="834" y="214" width="250" height="112" rx="16" />
+  <text class="title2" x="959" y="250" text-anchor="middle">output_governance</text>
+  <text class="body" x="959" y="276" text-anchor="middle">economic owner</text>
+  <text class="body" x="959" y="296" text-anchor="middle">controls external treasury</text>
+
+  <rect class="green" x="834" y="382" width="250" height="96" rx="16" />
+  <text class="title2" x="959" y="418" text-anchor="middle">project_treasury</text>
+  <text class="body" x="959" y="444" text-anchor="middle">not managed by REDAX</text>
+  <text class="body" x="959" y="464" text-anchor="middle">external / off-protocol</text>
+
+  <path class="arrow-blue" d="M272 278 H328" />
+  <path class="arrow-amber" d="M520 262 C560 250 560 222 574 216" />
+  <path class="arrow-amber" d="M650 260 V328" />
+  <path class="arrow-green" d="M959 328 V380" />
+  <line class="divider" x1="772" y1="150" x2="772" y2="530" />
+
+  <rect class="card" x="90" y="470" width="600" height="50" rx="14" />
+  <text class="strong" x="390" y="491" text-anchor="middle">Boundary</text>
+  <text class="body" x="390" y="512" text-anchor="middle">protocol_fee_vault is REDAX's fee vault; it is not the project_treasury.</text>
+
+  <rect class="card" x="820" y="580" width="300" height="42" rx="12" />
+  <circle cx="846" cy="601" r="5" fill="#d97706" />
+  <text class="body" x="858" y="605">protocol fee path</text>
+  <circle cx="982" cy="601" r="5" fill="#059669" />
+  <text class="body" x="994" y="605">project path</text>
 </svg>
