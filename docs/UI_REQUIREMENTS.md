@@ -240,6 +240,8 @@ UI MUST display final review:
 
 ## Holder Convert UI - Required Display
 
+![Holder convert UI flow](../diagrams/holder_convert_ui_flow.svg)
+
 Before any holder signs `convert_exact_in`, the UI MUST display a
 non-dismissible information block:
 

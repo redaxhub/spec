@@ -3,6 +3,8 @@
 > PDA hierarchy, account structures, and ownership boundaries. Byte and rent
 > notes are approximate until audit.
 
+![PDA hierarchy and authority boundaries](../diagrams/pda_hierarchy.svg)
+
 ### Treasury Terminology Update (SPEC v1.1, Section 13.3)
 
 **Naming change:** The REDAX protocol fee vault was previously referred to as campaign treasury. The current term is `protocol_fee_vault`, which disambiguates REDAX's fee vault from the project's own off-protocol treasury.

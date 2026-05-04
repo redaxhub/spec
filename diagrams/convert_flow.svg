@@ -1,115 +1,138 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="620" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
-  <title id="title">REDAX Hub holder conversion flow</title>
-  <desc id="desc">Sequential Phase 1 convert_exact_in flow from holder input through validation, burn handling, output minting, fee routing, state update, and event emission.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">REDAX Hub convert_exact_in execution flow</title>
+  <desc id="desc">End-to-end Phase 1 convert_exact_in execution flow from holder wallet signature through validation, TokenConfig lookup, legacy burn, Precision Sandwich math, fee split, minting, fee-vault routing, counter updates, and Converted event emission.</desc>
   <defs>
     <style>
-      .bg { fill: #ffffff; }
-      .title { fill: #0f172a; font: 700 26px Arial, sans-serif; }
-      .subtitle { fill: #475569; font: 400 14px Arial, sans-serif; }
-      .step { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
-      .step-blue { fill: #eff6ff; stroke: #93c5fd; stroke-width: 1.8; }
-      .step-green { fill: #ecfdf5; stroke: #86efac; stroke-width: 1.8; }
-      .step-amber { fill: #fffbeb; stroke: #fcd34d; stroke-width: 1.8; }
-      .rail { fill: #f8fafc; stroke: #e2e8f0; stroke-width: 1.5; }
-      .label { fill: #0f172a; font: 700 14px Arial, sans-serif; }
-      .body { fill: #475569; font: 400 12px Arial, sans-serif; }
-      .num { fill: #ffffff; font: 700 12px Arial, sans-serif; }
-      .note { fill: #334155; font: 700 12px Arial, sans-serif; letter-spacing: .04em; }
-      .arrow { fill: none; stroke: #2563eb; stroke-width: 2.2; marker-end: url(#arrow); }
-      .arrow-muted { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#arrow-muted); }
+      .title { fill:#0f172a; font:700 32px Arial, sans-serif; }
+      .subtitle { fill:#475569; font:400 15px Arial, sans-serif; }
+      .lane-title { fill:#334155; font:700 13px Arial, sans-serif; letter-spacing:.08em; }
+      .label { fill:#0f172a; font:700 14px Arial, sans-serif; }
+      .body { fill:#475569; font:400 12px Arial, sans-serif; }
+      .small { fill:#64748b; font:400 11px Arial, sans-serif; }
+      .num { fill:#ffffff; font:700 11px Arial, sans-serif; }
+      .lane { fill:#f8fafc; stroke:#cbd5e1; stroke-width:1.5; }
+      .card { fill:#ffffff; stroke:#cbd5e1; stroke-width:1.5; }
+      .blue { fill:#eff6ff; stroke:#93c5fd; stroke-width:1.8; }
+      .green { fill:#ecfdf5; stroke:#86efac; stroke-width:1.8; }
+      .amber { fill:#fffbeb; stroke:#fcd34d; stroke-width:1.8; }
+      .violet { fill:#f5f3ff; stroke:#c4b5fd; stroke-width:1.8; }
+      .arrow { fill:none; stroke:#2563eb; stroke-width:2.2; marker-end:url(#arrow-blue); }
+      .arrow-green { fill:none; stroke:#059669; stroke-width:2.2; marker-end:url(#arrow-green); }
+      .arrow-amber { fill:none; stroke:#d97706; stroke-width:2.2; marker-end:url(#arrow-amber); }
+      .arrow-muted { fill:none; stroke:#64748b; stroke-width:2; marker-end:url(#arrow-muted); }
     </style>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L9,3 L0,6 Z" fill="#2563eb" />
+    <marker id="arrow-blue" markerWidth="11" markerHeight="11" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3.5 L0,7 Z" fill="#2563eb"/>
     </marker>
-    <marker id="arrow-muted" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L9,3 L0,6 Z" fill="#64748b" />
+    <marker id="arrow-green" markerWidth="11" markerHeight="11" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3.5 L0,7 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrow-amber" markerWidth="11" markerHeight="11" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3.5 L0,7 Z" fill="#d97706"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="11" markerHeight="11" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3.5 L0,7 Z" fill="#64748b"/>
     </marker>
   </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
 
-  <rect class="bg" width="1200" height="620" />
-  <text class="title" x="60" y="54">End-to-end conversion flow</text>
-  <text class="subtitle" x="60" y="80">Phase 1 converts legacy tokens into SPL output tokens through one bounded Campaign PDA flow.</text>
+  <text class="title" x="64" y="58">convert_exact_in execution flow</text>
+  <text class="subtitle" x="64" y="86">Holder conversion validates campaign state and token config before burning legacy input and minting SPL output.</text>
 
-  <rect class="rail" x="54" y="124" width="1092" height="346" rx="20" />
-  <text class="note" x="80" y="156">convert_exact_in execution path</text>
+  <rect class="lane" x="54" y="124" width="1492" height="150" rx="22"/>
+  <text class="lane-title" x="86" y="156">HOLDER INITIATION</text>
+  <rect class="blue" x="94" y="182" width="180" height="68" rx="14"/>
+  <circle cx="118" cy="206" r="12" fill="#2563eb"/><text class="num" x="118" y="210" text-anchor="middle">1</text>
+  <text class="label" x="184" y="208" text-anchor="middle">Holder</text>
+  <text class="body" x="184" y="231" text-anchor="middle">chooses amount</text>
+  <rect class="blue" x="330" y="182" width="200" height="68" rx="14"/>
+  <circle cx="354" cy="206" r="12" fill="#2563eb"/><text class="num" x="354" y="210" text-anchor="middle">2</text>
+  <text class="label" x="430" y="208" text-anchor="middle">Wallet signature</text>
+  <text class="body" x="430" y="231" text-anchor="middle">authorizes convert_exact_in</text>
+  <rect class="card" x="586" y="182" width="208" height="68" rx="14"/>
+  <circle cx="610" cy="206" r="12" fill="#64748b"/><text class="num" x="610" y="210" text-anchor="middle">3</text>
+  <text class="label" x="690" y="208" text-anchor="middle">User legacy ATA</text>
+  <text class="body" x="690" y="231" text-anchor="middle">source token account</text>
 
-  <g transform="translate(80 190)">
-    <rect class="step-blue" width="130" height="120" rx="16" />
-    <circle cx="24" cy="24" r="13" fill="#2563eb" />
-    <text class="num" x="24" y="29" text-anchor="middle">1</text>
-    <text class="label" x="65" y="52" text-anchor="middle">Holder</text>
-    <text class="body" x="65" y="76" text-anchor="middle">starts convert</text>
-    <text class="body" x="65" y="96" text-anchor="middle">with legacy input</text>
-  </g>
+  <rect class="lane" x="54" y="314" width="1492" height="214" rx="22"/>
+  <text class="lane-title" x="86" y="346">PROGRAM VALIDATION GATES</text>
+  <rect class="card" x="94" y="382" width="204" height="96" rx="14"/>
+  <circle cx="118" cy="406" r="12" fill="#2563eb"/><text class="num" x="118" y="410" text-anchor="middle">4</text>
+  <text class="label" x="196" y="407" text-anchor="middle">validate campaign window</text>
+  <text class="body" x="196" y="431" text-anchor="middle">live status, start/end,</text>
+  <text class="body" x="196" y="450" text-anchor="middle">pause and finalization checks</text>
+  <rect class="violet" x="350" y="382" width="204" height="96" rx="14"/>
+  <circle cx="374" cy="406" r="12" fill="#7c3aed"/><text class="num" x="374" y="410" text-anchor="middle">5</text>
+  <text class="label" x="452" y="407" text-anchor="middle">TokenConfig lookup</text>
+  <text class="body" x="452" y="431" text-anchor="middle">rate, decimals, cap_in,</text>
+  <text class="body" x="452" y="450" text-anchor="middle">total_in, dust accumulator</text>
+  <rect class="amber" x="606" y="382" width="204" height="96" rx="14"/>
+  <circle cx="630" cy="406" r="12" fill="#d97706"/><text class="num" x="630" y="410" text-anchor="middle">6</text>
+  <text class="label" x="708" y="407" text-anchor="middle">validate legacy_mint</text>
+  <text class="body" x="708" y="431" text-anchor="middle">source mint matches</text>
+  <text class="body" x="708" y="450" text-anchor="middle">accepted TokenConfig entry</text>
+  <rect class="card" x="862" y="382" width="204" height="96" rx="14"/>
+  <circle cx="886" cy="406" r="12" fill="#2563eb"/><text class="num" x="886" y="410" text-anchor="middle">7</text>
+  <text class="label" x="964" y="407" text-anchor="middle">check cap_in / total_in</text>
+  <text class="body" x="964" y="431" text-anchor="middle">rejects over-cap input</text>
+  <text class="body" x="964" y="450" text-anchor="middle">before token movement</text>
 
-  <g transform="translate(230 190)">
-    <rect class="step" width="145" height="120" rx="16" />
-    <circle cx="24" cy="24" r="13" fill="#2563eb" />
-    <text class="num" x="24" y="29" text-anchor="middle">2</text>
-    <text class="label" x="72" y="50" text-anchor="middle">Validate</text>
-    <text class="body" x="72" y="74" text-anchor="middle">campaign live</text>
-    <text class="body" x="72" y="94" text-anchor="middle">caps and mint</text>
-  </g>
+  <rect class="lane" x="54" y="568" width="1492" height="238" rx="22"/>
+  <text class="lane-title" x="86" y="600">ACCOUNTING, MINTING, AND STATE UPDATES</text>
+  <rect class="amber" x="94" y="638" width="186" height="98" rx="14"/>
+  <circle cx="118" cy="662" r="12" fill="#d97706"/><text class="num" x="118" y="666" text-anchor="middle">8</text>
+  <text class="label" x="187" y="663" text-anchor="middle">burn legacy token</text>
+  <text class="body" x="187" y="687" text-anchor="middle">legacy input consumed</text>
+  <text class="small" x="187" y="707" text-anchor="middle">irreversible settlement</text>
+  <rect class="violet" x="330" y="638" width="210" height="98" rx="14"/>
+  <circle cx="354" cy="662" r="12" fill="#7c3aed"/><text class="num" x="354" y="666" text-anchor="middle">9</text>
+  <text class="label" x="435" y="663" text-anchor="middle">Precision Sandwich</text>
+  <text class="body" x="435" y="687" text-anchor="middle">deterministic gross output</text>
+  <text class="small" x="435" y="707" text-anchor="middle">preserves precision and dust</text>
+  <rect class="card" x="590" y="638" width="220" height="98" rx="14"/>
+  <circle cx="614" cy="662" r="12" fill="#64748b"/><text class="num" x="614" y="666" text-anchor="middle">10</text>
+  <text class="label" x="700" y="663" text-anchor="middle">split amounts</text>
+  <text class="body" x="700" y="687" text-anchor="middle">user_out + fee_out + dust</text>
+  <text class="small" x="700" y="707" text-anchor="middle">fee calculation applied here</text>
+  <rect class="blue" x="860" y="638" width="202" height="98" rx="14"/>
+  <circle cx="884" cy="662" r="12" fill="#2563eb"/><text class="num" x="884" y="666" text-anchor="middle">11</text>
+  <text class="label" x="961" y="663" text-anchor="middle">mint user_out</text>
+  <text class="body" x="961" y="687" text-anchor="middle">to holder output ATA</text>
+  <text class="small" x="961" y="707" text-anchor="middle">Campaign PDA signs mint</text>
+  <rect class="green" x="1112" y="638" width="202" height="98" rx="14"/>
+  <circle cx="1136" cy="662" r="12" fill="#059669"/><text class="num" x="1136" y="666" text-anchor="middle">12</text>
+  <text class="label" x="1213" y="663" text-anchor="middle">route fee_out</text>
+  <text class="body" x="1213" y="687" text-anchor="middle">to protocol_fee_vault</text>
+  <text class="small" x="1213" y="707" text-anchor="middle">REDAX protocol fee custody</text>
 
-  <g transform="translate(395 190)">
-    <rect class="step-amber" width="155" height="120" rx="16" />
-    <circle cx="24" cy="24" r="13" fill="#d97706" />
-    <text class="num" x="24" y="29" text-anchor="middle">3</text>
-    <text class="label" x="78" y="50" text-anchor="middle">Handle legacy</text>
-    <text class="body" x="78" y="74" text-anchor="middle">Phase 1 burn</text>
-    <text class="body" x="78" y="94" text-anchor="middle">via campaign logic</text>
-  </g>
+  <rect class="card" x="94" y="850" width="252" height="76" rx="14"/>
+  <text class="label" x="220" y="880" text-anchor="middle">update Campaign counters</text>
+  <text class="body" x="220" y="903" text-anchor="middle">total_out_minted, status, caps</text>
+  <rect class="card" x="404" y="850" width="252" height="76" rx="14"/>
+  <text class="label" x="530" y="880" text-anchor="middle">update TokenConfig counters</text>
+  <text class="body" x="530" y="903" text-anchor="middle">total_in, dust, per-mint accounting</text>
+  <rect class="green" x="714" y="850" width="252" height="76" rx="14"/>
+  <text class="label" x="840" y="880" text-anchor="middle">Converted event</text>
+  <text class="body" x="840" y="903" text-anchor="middle">indexable conversion record</text>
 
-  <g transform="translate(570 190)">
-    <rect class="step" width="150" height="120" rx="16" />
-    <circle cx="24" cy="24" r="13" fill="#2563eb" />
-    <text class="num" x="24" y="29" text-anchor="middle">4</text>
-    <text class="label" x="75" y="48" text-anchor="middle">Calculate</text>
-    <text class="body" x="75" y="72" text-anchor="middle">gross output</text>
-    <text class="body" x="75" y="92" text-anchor="middle">fee and dust</text>
-  </g>
+  <path class="arrow" d="M274 216 H328"/>
+  <path class="arrow" d="M530 216 H584"/>
+  <path class="arrow" d="M690 250 V306 C690 336 196 336 196 380"/>
+  <path class="arrow" d="M298 430 H348"/>
+  <path class="arrow" d="M554 430 H604"/>
+  <path class="arrow" d="M810 430 H860"/>
+  <path class="arrow" d="M964 478 V554 C964 590 187 590 187 636"/>
+  <path class="arrow-amber" d="M280 687 H328"/>
+  <path class="arrow" d="M540 687 H588"/>
+  <path class="arrow" d="M810 687 H858"/>
+  <path class="arrow-green" d="M1062 687 H1110"/>
+  <path class="arrow-muted" d="M1213 736 C1213 810 840 800 840 848"/>
+  <path class="arrow-muted" d="M700 736 C700 802 530 806 530 848"/>
+  <path class="arrow-muted" d="M961 736 C961 800 220 800 220 848"/>
+  <path class="arrow-muted" d="M656 888 H712"/>
 
-  <g transform="translate(740 190)">
-    <rect class="step-blue" width="150" height="120" rx="16" />
-    <circle cx="24" cy="24" r="13" fill="#2563eb" />
-    <text class="num" x="24" y="29" text-anchor="middle">5</text>
-    <text class="label" x="75" y="48" text-anchor="middle">Mint output</text>
-    <text class="body" x="75" y="72" text-anchor="middle">Campaign PDA</text>
-    <text class="body" x="75" y="92" text-anchor="middle">mints SPL token</text>
-  </g>
-
-  <g transform="translate(910 190)">
-    <rect class="step-green" width="155" height="120" rx="16" />
-    <circle cx="24" cy="24" r="13" fill="#059669" />
-    <text class="num" x="24" y="29" text-anchor="middle">6</text>
-    <text class="label" x="78" y="48" text-anchor="middle">Distribute</text>
-    <text class="body" x="78" y="72" text-anchor="middle">net to holder</text>
-    <text class="body" x="78" y="92" text-anchor="middle">fee to vault</text>
-  </g>
-
-  <path class="arrow" d="M210 250 H228" />
-  <path class="arrow" d="M375 250 H393" />
-  <path class="arrow" d="M550 250 H568" />
-  <path class="arrow" d="M720 250 H738" />
-  <path class="arrow" d="M890 250 H908" />
-
-  <rect class="step" x="180" y="382" width="240" height="58" rx="14" />
-  <text class="label" x="300" y="407" text-anchor="middle">State updates</text>
-  <text class="body" x="300" y="428" text-anchor="middle">minted total, caps, dust accumulator</text>
-
-  <rect class="step" x="470" y="382" width="240" height="58" rx="14" />
-  <text class="label" x="590" y="407" text-anchor="middle">Event emission</text>
-  <text class="body" x="590" y="428" text-anchor="middle">off-chain indexers reconstruct activity</text>
-
-  <rect class="step-green" x="760" y="382" width="240" height="58" rx="14" />
-  <text class="label" x="880" y="407" text-anchor="middle">Final result</text>
-  <text class="body" x="880" y="428" text-anchor="middle">irreversible conversion complete</text>
-
-  <path class="arrow-muted" d="M815 310 V354 C815 372 590 360 590 380" />
-  <path class="arrow-muted" d="M650 310 V354 C650 372 300 360 300 380" />
-  <path class="arrow-muted" d="M710 412 H758" />
-
-  <rect x="72" y="508" width="1056" height="64" rx="16" fill="#f8fafc" stroke="#cbd5e1" />
-  <text class="note" x="96" y="536">Phase 1 boundaries</text>
-  <text class="body" x="96" y="558">SingleProjectMigration only. ProgramCreatedOutputMint only. MetaplexMetadataCPI only. freeze_authority = None. SPL Token output only.</text>
+  <rect class="card" x="1134" y="850" width="360" height="76" rx="14"/>
+  <text class="lane-title" x="1160" y="878">PHASE 1 NOTE</text>
+  <text class="small" x="1160" y="902">SingleProjectMigration, ProgramCreatedOutputMint,</text>
+  <text class="small" x="1160" y="920">MetaplexMetadataCPI, freeze_authority = None.</text>
 </svg>

@@ -14,6 +14,12 @@ introduces normative rules for multi-project mergers, clarifies treasury
 terminology, defines output mint metadata policy, and specifies the UI's role as
 a discovery layer.
 
+### 13.1.1 Architecture Diagrams
+
+![Output governance separation model](../diagrams/output_governance_model.svg)
+
+![protocol_fee_vault model](../diagrams/protocol_fee_vault_model.svg)
+
 ### 13.2 Role Definitions
 
 - **OPERATIONAL AUTHORITY** (`campaign_admin`): The address authorized to pause,
@@ -81,6 +87,8 @@ only `ProgramCreatedOutputMint`.
 - **`freeze_authority = None` (mandatory in Phase 1).**
 - `decimals = 9` (locked per SPEC v1).
 - Output token program: SPL Token (Token-2022 output deferred to Phase 2).
+
+![Holder conversion execution flow](../diagrams/convert_flow.svg)
 
 **Phase 1 freeze authority rule:**
 

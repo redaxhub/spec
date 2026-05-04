@@ -1,117 +1,123 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="690" viewBox="0 0 1200 690" role="img" aria-labelledby="title desc">
-  <title id="title">REDAX Hub holder convert UI flow</title>
-  <desc id="desc">User-facing flow for a holder reviewing campaign status, inputs, governance, fee information, disclosures, confirmation, and result state.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">REDAX Hub holder convert UI journey</title>
+  <desc id="desc">Holder-facing UI journey from campaign page through review status, unreviewed warning gate, input, quote preview, protocol fee disclosure, governance address display, confirmation, wallet signature, pending state, success result, and explorer link.</desc>
   <defs>
     <style>
-      .bg { fill: #ffffff; }
-      .title { fill: #0f172a; font: 700 26px Arial, sans-serif; }
-      .subtitle { fill: #475569; font: 400 14px Arial, sans-serif; }
-      .screen { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; filter: url(#shadow); }
-      .screen-blue { fill: #eff6ff; stroke: #93c5fd; stroke-width: 1.7; filter: url(#shadow); }
-      .screen-amber { fill: #fffbeb; stroke: #fcd34d; stroke-width: 1.7; filter: url(#shadow); }
-      .screen-green { fill: #ecfdf5; stroke: #86efac; stroke-width: 1.7; filter: url(#shadow); }
-      .head { fill: #0f172a; font: 700 15px Arial, sans-serif; }
-      .body { fill: #475569; font: 400 12px Arial, sans-serif; }
-      .strong { fill: #0f172a; font: 700 12px Arial, sans-serif; }
-      .tab { fill: #f8fafc; stroke: #e2e8f0; stroke-width: 1; }
-      .button { fill: #2563eb; }
-      .button-text { fill: #ffffff; font: 700 12px Arial, sans-serif; }
-      .arrow { fill: none; stroke: #2563eb; stroke-width: 2.2; marker-end: url(#arrow); }
-      .arrow-muted { fill: none; stroke: #64748b; stroke-width: 2; marker-end: url(#arrow-muted); }
+      .title { fill:#0f172a; font:700 32px Arial, sans-serif; }
+      .subtitle { fill:#475569; font:400 15px Arial, sans-serif; }
+      .lane-title { fill:#334155; font:700 13px Arial, sans-serif; letter-spacing:.08em; }
+      .label { fill:#0f172a; font:700 14px Arial, sans-serif; }
+      .body { fill:#475569; font:400 12px Arial, sans-serif; }
+      .small { fill:#64748b; font:400 11px Arial, sans-serif; }
+      .lane { fill:#f8fafc; stroke:#cbd5e1; stroke-width:1.5; }
+      .panel { fill:#ffffff; stroke:#cbd5e1; stroke-width:1.5; }
+      .blue { fill:#eff6ff; stroke:#93c5fd; stroke-width:1.8; }
+      .green { fill:#ecfdf5; stroke:#86efac; stroke-width:1.8; }
+      .amber { fill:#fffbeb; stroke:#fcd34d; stroke-width:1.8; }
+      .rose { fill:#fff1f2; stroke:#fda4af; stroke-width:1.8; }
+      .field { fill:#ffffff; stroke:#e2e8f0; stroke-width:1.2; }
+      .badge-green { fill:#dcfce7; stroke:#86efac; stroke-width:1.2; }
+      .badge-amber { fill:#fef3c7; stroke:#fcd34d; stroke-width:1.2; }
+      .badge-text { fill:#334155; font:700 10px Arial, sans-serif; letter-spacing:.04em; }
+      .arrow { fill:none; stroke:#2563eb; stroke-width:2.2; marker-end:url(#arrow-blue); }
+      .arrow-green { fill:none; stroke:#059669; stroke-width:2.2; marker-end:url(#arrow-green); }
+      .arrow-muted { fill:none; stroke:#64748b; stroke-width:2; marker-end:url(#arrow-muted); }
     </style>
-    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
-      <feDropShadow dx="0" dy="6" stdDeviation="5" flood-color="#0f172a" flood-opacity=".08" />
-    </filter>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L9,3 L0,6 Z" fill="#2563eb" />
+    <marker id="arrow-blue" markerWidth="11" markerHeight="11" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3.5 L0,7 Z" fill="#2563eb"/>
     </marker>
-    <marker id="arrow-muted" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L9,3 L0,6 Z" fill="#64748b" />
+    <marker id="arrow-green" markerWidth="11" markerHeight="11" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3.5 L0,7 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrow-muted" markerWidth="11" markerHeight="11" refX="10" refY="3.5" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3.5 L0,7 Z" fill="#64748b"/>
     </marker>
   </defs>
+  <rect width="100%" height="100%" fill="#ffffff"/>
 
-  <rect class="bg" width="1200" height="690" />
-  <text class="title" x="60" y="54">Holder convert UI flow</text>
-  <text class="subtitle" x="60" y="80">The UI must make status, governance, fee, and finality information visible before signing.</text>
+  <text class="title" x="64" y="58">Holder convert UI journey</text>
+  <text class="subtitle" x="64" y="86">The UI must make campaign status, authorities, protocol fee, and irreversible conversion clear before signature.</text>
 
-  <g transform="translate(70 132)">
-    <rect class="screen-blue" width="230" height="170" rx="18" />
-    <rect class="tab" x="20" y="24" width="190" height="28" rx="8" />
-    <text class="head" x="115" y="44" text-anchor="middle">Campaign page</text>
-    <text class="body" x="32" y="82">Review status badge</text>
-    <text class="body" x="32" y="106">SingleProjectMigration</text>
-    <text class="body" x="32" y="130">ProgramCreatedOutputMint</text>
-    <text class="body" x="32" y="154">SPL Token output</text>
-  </g>
+  <rect class="lane" x="54" y="126" width="1492" height="178" rx="22"/>
+  <text class="lane-title" x="86" y="160">DISCOVER CAMPAIGN AND APPLY TRUST GATES</text>
+  <rect class="blue" x="96" y="194" width="238" height="84" rx="15"/>
+  <text class="label" x="215" y="226" text-anchor="middle">Campaign page</text>
+  <text class="body" x="215" y="250" text-anchor="middle">route includes campaign address</text>
+  <rect class="badge-green" x="130" y="260" width="82" height="22" rx="11"/><text class="badge-text" x="171" y="275" text-anchor="middle">REVIEWED</text>
+  <rect class="badge-amber" x="222" y="260" width="94" height="22" rx="11"/><text class="badge-text" x="269" y="275" text-anchor="middle">UNREVIEWED</text>
+  <rect class="amber" x="394" y="194" width="244" height="84" rx="15"/>
+  <text class="label" x="516" y="226" text-anchor="middle">Reviewed / Unreviewed</text>
+  <text class="body" x="516" y="250" text-anchor="middle">status badge always visible</text>
+  <text class="small" x="516" y="270" text-anchor="middle">reviewed campaigns sort first</text>
+  <rect class="rose" x="698" y="194" width="276" height="84" rx="15"/>
+  <text class="label" x="836" y="226" text-anchor="middle">Warning gate</text>
+  <text class="body" x="836" y="250" text-anchor="middle">Direct-link warning for unreviewed</text>
+  <text class="small" x="836" y="270" text-anchor="middle">requires explicit acknowledgment</text>
+  <rect class="panel" x="1034" y="194" width="414" height="84" rx="15"/>
+  <text class="label" x="1241" y="226" text-anchor="middle">campaign state snapshot</text>
+  <text class="body" x="1241" y="250" text-anchor="middle">live / paused / finalized, output mint, review state</text>
+  <text class="small" x="1241" y="270" text-anchor="middle">prevents hidden state changes before quote</text>
 
-  <g transform="translate(360 132)">
-    <rect class="screen-amber" width="230" height="170" rx="18" />
-    <rect class="tab" x="20" y="24" width="190" height="28" rx="8" />
-    <text class="head" x="115" y="44" text-anchor="middle">Warning gate</text>
-    <text class="body" x="32" y="84">Shown for unreviewed</text>
-    <text class="body" x="32" y="108">direct-link campaigns</text>
-    <text class="body" x="32" y="132">requires holder</text>
-    <text class="body" x="32" y="152">acknowledgment</text>
-  </g>
+  <rect class="lane" x="54" y="348" width="1492" height="244" rx="22"/>
+  <text class="lane-title" x="86" y="382">ENTER AMOUNT, QUOTE, AND REVIEW DISCLOSURES</text>
+  <rect class="panel" x="96" y="426" width="218" height="112" rx="15"/>
+  <text class="label" x="205" y="458" text-anchor="middle">Legacy token input</text>
+  <rect class="field" x="126" y="478" width="158" height="34" rx="9"/>
+  <text class="body" x="145" y="500">amount</text>
+  <text class="small" x="205" y="528" text-anchor="middle">source mint and balance shown</text>
+  <rect class="blue" x="364" y="426" width="218" height="112" rx="15"/>
+  <text class="label" x="473" y="458" text-anchor="middle">Quote preview</text>
+  <text class="body" x="473" y="482" text-anchor="middle">Output amount</text>
+  <text class="small" x="473" y="504" text-anchor="middle">gross, Protocol fee, net output</text>
+  <text class="small" x="473" y="522" text-anchor="middle">conversion rate and dust note</text>
+  <rect class="green" x="632" y="426" width="218" height="112" rx="15"/>
+  <text class="label" x="741" y="458" text-anchor="middle">Protocol fee info</text>
+  <text class="body" x="741" y="482" text-anchor="middle">1% fee to protocol_fee_vault</text>
+  <text class="small" x="741" y="504" text-anchor="middle">not the project treasury</text>
+  <rect class="panel" x="900" y="426" width="254" height="112" rx="15"/>
+  <text class="label" x="1027" y="458" text-anchor="middle">Authority display</text>
+  <text class="body" x="1027" y="482" text-anchor="middle">output_governance</text>
+  <text class="body" x="1027" y="502" text-anchor="middle">campaign_admin</text>
+  <text class="body" x="1027" y="522" text-anchor="middle">Campaign PDA</text>
+  <rect class="panel" x="1204" y="426" width="244" height="112" rx="15"/>
+  <text class="label" x="1326" y="458" text-anchor="middle">Required disclaimers</text>
+  <text class="body" x="1326" y="482" text-anchor="middle">irreversible conversion</text>
+  <text class="small" x="1326" y="504" text-anchor="middle">legacy tokens burned</text>
+  <text class="small" x="1326" y="522" text-anchor="middle">output tokens minted</text>
 
-  <g transform="translate(650 132)">
-    <rect class="screen" width="230" height="170" rx="18" />
-    <rect class="tab" x="20" y="24" width="190" height="28" rx="8" />
-    <text class="head" x="115" y="44" text-anchor="middle">Input and quote</text>
-    <text class="body" x="32" y="82">Legacy token input</text>
-    <text class="body" x="32" y="106">Conversion rate</text>
-    <text class="body" x="32" y="130">Expected output</text>
-    <text class="body" x="32" y="154">Slippage and finality info</text>
-  </g>
+  <rect class="lane" x="54" y="636" width="1492" height="188" rx="22"/>
+  <text class="lane-title" x="86" y="670">CONFIRM, SIGN, AND TRACK TRANSACTION</text>
+  <rect class="amber" x="172" y="714" width="224" height="78" rx="15"/>
+  <text class="label" x="284" y="746" text-anchor="middle">Confirm convert</text>
+  <text class="body" x="284" y="770" text-anchor="middle">final review state</text>
+  <rect class="blue" x="500" y="714" width="224" height="78" rx="15"/>
+  <text class="label" x="612" y="746" text-anchor="middle">Wallet signature</text>
+  <text class="body" x="612" y="770" text-anchor="middle">holder signs transaction</text>
+  <rect class="panel" x="828" y="714" width="224" height="78" rx="15"/>
+  <text class="label" x="940" y="746" text-anchor="middle">Transaction pending</text>
+  <text class="body" x="940" y="770" text-anchor="middle">signature submitted</text>
+  <rect class="green" x="1156" y="704" width="256" height="98" rx="15"/>
+  <text class="label" x="1284" y="736" text-anchor="middle">Success</text>
+  <text class="body" x="1284" y="760" text-anchor="middle">output received, fee shown</text>
+  <text class="small" x="1284" y="782" text-anchor="middle">link to explorer / event</text>
 
-  <g transform="translate(940 132)">
-    <rect class="screen" width="190" height="170" rx="18" />
-    <rect class="tab" x="20" y="24" width="150" height="28" rx="8" />
-    <text class="head" x="95" y="44" text-anchor="middle">Campaign info</text>
-    <text class="body" x="28" y="82">output_governance</text>
-    <text class="body" x="28" y="106">campaign_admin</text>
-    <text class="body" x="28" y="130">protocol_fee_vault</text>
-    <text class="body" x="28" y="154">metadata source</text>
-  </g>
+  <path class="arrow" d="M334 236 H392"/>
+  <path class="arrow" d="M638 236 H696"/>
+  <path class="arrow-muted" d="M974 236 H1032"/>
+  <path class="arrow-muted" d="M1241 278 V334 C1241 360 205 360 205 424"/>
+  <path class="arrow" d="M314 482 H362"/>
+  <path class="arrow" d="M582 482 H630"/>
+  <path class="arrow" d="M850 482 H898"/>
+  <path class="arrow-muted" d="M1154 482 H1202"/>
+  <path class="arrow-muted" d="M1326 538 V616 C1326 656 284 656 284 712"/>
+  <path class="arrow" d="M396 753 H498"/>
+  <path class="arrow" d="M724 753 H826"/>
+  <path class="arrow-green" d="M1052 753 H1154"/>
 
-  <g transform="translate(190 390)">
-    <rect class="screen" width="250" height="170" rx="18" />
-    <rect class="tab" x="20" y="24" width="210" height="28" rx="8" />
-    <text class="head" x="125" y="44" text-anchor="middle">Fee and disclosures</text>
-    <text class="body" x="34" y="82">1% output fee</text>
-    <text class="body" x="34" y="106">fee route to protocol_fee_vault</text>
-    <text class="body" x="34" y="130">freeze_authority = None</text>
-    <text class="body" x="34" y="154">conversion is irreversible</text>
-  </g>
-
-  <g transform="translate(520 390)">
-    <rect class="screen-blue" width="230" height="170" rx="18" />
-    <rect class="tab" x="20" y="24" width="190" height="28" rx="8" />
-    <text class="head" x="115" y="44" text-anchor="middle">Confirm convert</text>
-    <text class="body" x="34" y="82">holder reviews details</text>
-    <text class="body" x="34" y="106">wallet transaction opens</text>
-    <rect class="button" x="48" y="130" width="134" height="30" rx="15" />
-    <text class="button-text" x="115" y="150" text-anchor="middle">Sign convert</text>
-  </g>
-
-  <g transform="translate(830 390)">
-    <rect class="screen-green" width="230" height="170" rx="18" />
-    <rect class="tab" x="20" y="24" width="190" height="28" rx="8" />
-    <text class="head" x="115" y="44" text-anchor="middle">Result state</text>
-    <text class="body" x="34" y="82">legacy token burned</text>
-    <text class="body" x="34" y="106">output token received</text>
-    <text class="body" x="34" y="130">event indexed</text>
-    <text class="body" x="34" y="154">receipt visible</text>
-  </g>
-
-  <path class="arrow" d="M300 217 H358" />
-  <path class="arrow" d="M590 217 H648" />
-  <path class="arrow" d="M880 217 H938" />
-  <path class="arrow-muted" d="M1035 302 V342 C1035 362 394 358 394 388" />
-  <path class="arrow" d="M440 475 H518" />
-  <path class="arrow" d="M750 475 H828" />
-
-  <rect x="72" y="612" width="1056" height="42" rx="13" fill="#f8fafc" stroke="#cbd5e1" />
-  <text class="strong" x="96" y="638">Required display before signing:</text>
-  <text class="body" x="290" y="638">governance addresses, fee route, review status, output metadata, and irreversible conversion notice.</text>
+  <rect class="panel" x="86" y="864" width="1428" height="80" rx="18"/>
+  <text class="lane-title" x="116" y="894">LEGEND / REQUIRED UI GUARANTEE</text>
+  <circle cx="124" cy="920" r="6" fill="#2563eb"/><text class="small" x="140" y="924">Primary user action</text>
+  <circle cx="326" cy="920" r="6" fill="#d97706"/><text class="small" x="342" y="924">Caution or confirmation gate</text>
+  <circle cx="584" cy="920" r="6" fill="#059669"/><text class="small" x="600" y="924">Successful settlement or fee/governance disclosure</text>
+  <text class="small" x="974" y="924">UI must not hide review status, fee, output_governance, campaign_admin, or Campaign PDA.</text>
 </svg>
