@@ -38,11 +38,11 @@ a discovery layer.
 To eliminate prior ambiguity, REDAX SPEC v1.1+ uses three distinct treasury
 concepts:
 
-| Term                 | Owner                                | Purpose                                                                | On-chain location                                            |
-| -------------------- | ------------------------------------ | ---------------------------------------------------------------------- | ------------------------------------------------------------ |
-| `protocol_fee_vault` | REDAX program (Campaign PDA bounded) | Holds REDAX's 1% output token fee accumulated during the campaign      | PDA derived from Campaign + protocol fee seed                |
-| `project_treasury`   | `output_governance` (off-protocol)   | The project's own treasury for the output token. NOT managed by REDAX. | Any address chosen by output_governance; outside REDAX scope |
-| `treasury_policy`    | Locked at create_campaign            | Execution policy applied to `protocol_fee_vault` (Hold/Vest/LP/Mixed)  | Stored in Campaign PDA, immutable                            |
+| Term | Owner | Purpose | On-chain location |
+| --- | --- | --- | --- |
+| `protocol_fee_vault` | REDAX program (Campaign PDA bounded) | Holds REDAX's 1% output token fee accumulated during the campaign | PDA derived from Campaign + protocol fee seed |
+| `project_treasury` | `output_governance` (off-protocol) | The project's own treasury for the output token. NOT managed by REDAX. | Any address chosen by output_governance; outside REDAX scope |
+| `treasury_policy` | Locked at create_campaign | Execution policy applied to `protocol_fee_vault` (Hold/Vest/LP/Mixed) | Stored in Campaign PDA, immutable |
 
 **Naming change (v1 to v1.1):** The REDAX protocol fee vault was previously referred to as campaign treasury. The current term is `protocol_fee_vault`, which makes it unambiguous: this vault holds REDAX's protocol fee, NOT the project's treasury.
 
@@ -57,12 +57,12 @@ REDAX defines four campaign types via `merger_type: u8` on Campaign PDA. Phase 1
 enforces that only `SingleProjectMigration` is accepted; other types are
 rejected at program level.
 
-| Value | Type                         | Phase 1 status          | Phase 2 status           |
-| ----- | ---------------------------- | ----------------------- | ------------------------ |
-| 0     | `SingleProjectMigration`     | **Accepted** (default)  | Accepted                 |
-| 1     | `OfficialMultiProjectMerger` | **Rejected** by program | Accepted                 |
-| 2     | `UnofficialMigrationOffer`   | **Rejected** by program | Accepted with disclaimer |
-| 3     | `CommunityLedMigration`      | **Rejected** by program | Accepted with evidence   |
+| Value | Type | Phase 1 status | Phase 2 status |
+| --- | --- | --- | --- |
+| 0 | `SingleProjectMigration` | **Accepted** (default) | Accepted |
+| 1 | `OfficialMultiProjectMerger` | **Rejected** by program | Accepted |
+| 2 | `UnofficialMigrationOffer` | **Rejected** by program | Accepted with disclaimer |
+| 3 | `CommunityLedMigration` | **Rejected** by program | Accepted with evidence |
 
 **Rationale for Phase 1 single-type:** Pre-launch reputation safety dominates. A
 single misuse against a popular legacy mint would generate scam headlines that
@@ -75,10 +75,10 @@ protocol has established a track record.
 REDAX defines two output mint modes via `output_mint_mode: u8`. Phase 1 enforces
 only `ProgramCreatedOutputMint`.
 
-| Value | Mode                       | Phase 1 status          | Phase 2 status                         |
-| ----- | -------------------------- | ----------------------- | -------------------------------------- |
-| 0     | `ProgramCreatedOutputMint` | **Required**            | Accepted (default)                     |
-| 1     | `ExistingOutputMint`       | **Rejected** by program | Accepted with mint authority migration |
+| Value | Mode | Phase 1 status | Phase 2 status |
+| --- | --- | --- | --- |
+| 0 | `ProgramCreatedOutputMint` | **Required** | Accepted (default) |
+| 1 | `ExistingOutputMint` | **Rejected** by program | Accepted with mint authority migration |
 
 **ProgramCreatedOutputMint behavior (Phase 1):**
 
@@ -284,14 +284,14 @@ equal `FullyAttested` before activation.
 A `LegacyProjectAttestation` is valid if signed by a source matching one of the
 values in `AttestationAuthoritySource`:
 
-| Value | Source                                                      | On-chain hard-check                               | Off-chain review            |
-| ----- | ----------------------------------------------------------- | ------------------------------------------------- | --------------------------- |
-| 0     | Legacy mint authority                                       | YES (program enforced)                            | -                           |
-| 1     | Metadata update authority (Metaplex)                        | YES (program enforced if metadata account exists) | -                           |
-| 2     | Known project multisig (Squads/SPL allowlisted in Phase 2+) | OPTIONAL (allowlist)                              | Required if not allowlisted |
-| 3     | DAO governance vote (SPL Governance)                        | OPTIONAL (allowlist)                              | Required                    |
-| 4     | Off-chain signed statement (domain/X/GitHub) - hash only    | NO                                                | Required (Verified Tier)    |
-| 5     | REDAX manual verified record (Phase 2 fallback)             | NO                                                | Required (multisig review)  |
+| Value | Source | On-chain hard-check | Off-chain review |
+| --- | --- | --- | --- |
+| 0 | Legacy mint authority | YES (program enforced) | - |
+| 1 | Metadata update authority (Metaplex) | YES (program enforced if metadata account exists) | - |
+| 2 | Known project multisig (Squads/SPL allowlisted in Phase 2+) | OPTIONAL (allowlist) | Required if not allowlisted |
+| 3 | DAO governance vote (SPL Governance) | OPTIONAL (allowlist) | Required |
+| 4 | Off-chain signed statement (domain/X/GitHub) - hash only | NO | Required (Verified Tier) |
+| 5 | REDAX manual verified record (Phase 2 fallback) | NO | Required (multisig review) |
 
 The program MUST validate sources where on-chain verification is available. For
 other sources, the `LegacyProjectAttestation` PDA is created with
@@ -351,19 +351,24 @@ Phase 2. (See §13.5.)
 The `authority_policy: u8` field on Campaign PDA determines what happens to
 `mint_authority` after `finalize_campaign`:
 
-| Value | Name                   | Behavior                                                                                                         | Verified Tier eligible? | Recommended                    |
-| ----- | ---------------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------------- | ------------------------------ |
-| 0     | `Revoked`              | `mint_authority` set to None at finalization. Output supply locked permanently.                                  | Yes                     | **Default**                    |
-| 1     | `BoundToCampaign`      | Campaign PDA retains `mint_authority`. No further mint possible (Total Output Cap reached).                      | Yes                     | Acceptable for advanced use    |
-| 2     | `TransferToGovernance` | `mint_authority` transferred to `output_governance` at finalization. Future mints possible (governed off-chain). | No (R-OG-11)            | High-risk; requires UI warning |
+| Value | Name | Behavior | Verified Tier eligible? | Recommended |
+| --- | --- | --- | --- | --- |
+| 0 | `Revoked` | `mint_authority` set to None at finalization. Output supply locked permanently. | Yes | **Default** |
+| 1 | `BoundToCampaign` | Campaign PDA retains `mint_authority`. No further mint possible (Total Output Cap reached). | Yes | Acceptable for advanced use |
+| 2 | `TransferToGovernance` | `mint_authority` transferred to `output_governance` at finalization. Future mints possible (governed off-chain). | No (R-OG-11) | High-risk; requires UI warning |
 
 ### 13.10 Implementation Phasing
 
-| Phase                     | What ships                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Phase 1 (Q4 2026 mainnet) | All struct fields added (`merger_type`, `output_mint_mode`, `metadata_strategy`, `output_governance`, `authority_policy`, `official_attestation_status`, `required_attestations_count`, `received_attestations_count`, `disclaimer_hash`). Program logic enforces: `merger_type == SingleProjectMigration` AND `output_mint_mode == ProgramCreatedOutputMint` AND `metadata_strategy == MetaplexMetadataCPI` AND output mint `freeze_authority == None`. All other values rejected with `Phase2FeatureNotEnabled` error and `msg!()` log. `LegacyProjectAttestation` PDA defined but not activated. Discovery Policy active. |
-| Phase 2 (Q1-Q2 2027)      | `LegacyProjectAttestation` PDA activated. Multi-Project Merger / Unofficial / Community-led types live. ExistingOutputMint mode live. Token2022MetadataExtension and CreatorDeclaredPostCampaign metadata strategies live. Campaign PDA freeze authority opt-in evaluated. Verified Tier governance replaces Discovery Policy.                                                                                                                                                                                                                                                                                               |
-| Phase 3                   | Subject to legal clearance - no impact on this section.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Phase | What ships |
+| --- | --- |
+| Phase 1 (Q4 2026 mainnet) | All struct fields added (`merger_type`, `output_mint_mode`, `metadata_strategy`, `output_governance`, `authority_policy`, `official_attestation_status`, `required_attestations_count`, `received_attestations_count`, `disclaimer_hash`). |
+| Phase 1 (Q4 2026 mainnet) | Program logic enforces: `merger_type == SingleProjectMigration` AND `output_mint_mode == ProgramCreatedOutputMint` AND `metadata_strategy == MetaplexMetadataCPI` AND output mint `freeze_authority == None`. |
+| Phase 1 (Q4 2026 mainnet) | All other values rejected with `Phase2FeatureNotEnabled` error and `msg!()` log. |
+| Phase 1 (Q4 2026 mainnet) | `LegacyProjectAttestation` PDA defined but not activated. Discovery Policy active. |
+| Phase 2 (Q1-Q2 2027) | `LegacyProjectAttestation` PDA activated. Multi-Project Merger / Unofficial / Community-led types live. ExistingOutputMint mode live. |
+| Phase 2 (Q1-Q2 2027) | Token2022MetadataExtension and CreatorDeclaredPostCampaign metadata strategies live. Campaign PDA freeze authority opt-in evaluated. |
+| Phase 2 (Q1-Q2 2027) | Verified Tier governance replaces Discovery Policy. |
+| Phase 3 | Subject to legal clearance - no impact on this section. |
 
 ### 13.11 Compatibility
 
